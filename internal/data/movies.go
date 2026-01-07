@@ -42,7 +42,7 @@ type MovieModel struct {
 	DB *sql.DB
 }
 
-func (m *MovieModel) Insert(movie *Movie) error {
+func (m MovieModel) Insert(movie *Movie) error {
 	query := `
 		INSERT INTO movies (title, year, runtime, genres) 
 		VALUES ($1, $2, $3, $4)
@@ -56,7 +56,7 @@ func (m *MovieModel) Insert(movie *Movie) error {
 	return m.DB.QueryRowContext(ctx, query, args...).Scan(&movie.ID, &movie.CreatedAt, &movie.Version)
 }
 
-func (m *MovieModel) Get(id int64) (*Movie, error) {
+func (m MovieModel) Get(id int64) (*Movie, error) {
 	if id < 1 {
 		return nil, ErrRecordNotFound
 	}
@@ -93,7 +93,7 @@ func (m *MovieModel) Get(id int64) (*Movie, error) {
 	return &movie, nil
 }
 
-func (m *MovieModel) Update(movie *Movie) error {
+func (m MovieModel) Update(movie *Movie) error {
 	query := `
         UPDATE movies 
         SET title = $1, year = $2, runtime = $3, genres = $4, version = version + 1
@@ -125,7 +125,7 @@ func (m *MovieModel) Update(movie *Movie) error {
 	return nil
 }
 
-func (m *MovieModel) Delete(id int64) error {
+func (m MovieModel) Delete(id int64) error {
 	if id < 1 {
 		return ErrRecordNotFound
 	}
