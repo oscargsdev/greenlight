@@ -16,9 +16,12 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/oscargsdev/greenlight/internal/data"
 	"github.com/oscargsdev/greenlight/internal/mailer"
+	"github.com/oscargsdev/greenlight/internal/vcs"
 )
 
-const version = "1.0.0"
+var (
+	version = vcs.Version()
+)
 
 type config struct {
 	port int
