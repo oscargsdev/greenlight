@@ -90,6 +90,7 @@ func main() {
 
 	if *displayVersion {
 		fmt.Printf("Version:\t%s\n", version)
+		os.Exit(0)
 	}
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
